@@ -1,0 +1,906 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjectDotNetV2.Data.Entities;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "_layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Admin Page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/admin/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- MetisMenu CSS -->
+    <link href="~/admin/css/metisMenu.min.css" rel="stylesheet" />
+
+    <!-- Timeline CSS -->
+    <link href="~/admin/css/timeline.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="~/admin/css/startmin.css" rel="stylesheet" />
+
+    <!-- Morris Charts CSS -->
+    <link href="~/admin/css/morris.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="~/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" asp-controller="Admin" asp-action="Home">Primordial</a>
+            </div>
+
+            <button type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <ul class="nav navbar-nav navbar-left navbar-top-links">
+                <li>
+                    <a asp-controller="App" asp-action="Index"><i class="fa fa-home fa-fw"></i> Website</a>
+                </li>
+            </ul>
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/"  method="post" id="logoutForm">
+
+                <ul class="nav navbar-right navbar-top-links">
+                    <li class="dropdown">
+
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> Hello @UserManager.GetUserName(User) <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li>
+                                <a ><i class="fa fa-file-text-o"></i> Manage Order</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <button type="submit" class="btn btn-link navbar-link"><i class="fa fa-sign-out fa-fw"></i>Logout</button>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.navbar-top-links -->
+                </form>
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Search..." />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+
+                            <li>
+                                <a asp-controller="Admin" asp-action="Home" class="active"><i class="fa fa-dashboard fa-fw"></i> Home</a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Admin" asp-action="Products"><i class="fa fa-table fa-fw"></i> Manage Products</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Categories"><i class="fa fa-edit fa-fw"></i> Manage Category</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Orders"><i class="fa fa-file-text-o"></i> Manage Order</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Transports"><i class="fa fa-file-text-o"></i> Manage Transports</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Bills"><i class="fa fa-file-text-o"></i> Manage Bill</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="User"><i class="fa fa-heartbeat"></i> Manage User</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Information"><i class="fa fa-user-circle-o"></i> Information Admin</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        </nav>
+
+        @RenderBody()
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <!--   ss-->
+    <script src="~/admin/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/admin/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/admin/js/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="~/admin/js/dataTables/jquery.dataTables.min.js"></script>
+    <script src="~/admin/js/dataTables/dataTables.bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="~/admin/js/startmin.js"></script>
+    <script type="text/javascript">
+        function readURL(input) {
+            var formdata = new FormData();
+            var fileInput = document.getElementById('imageUploadForm');
+            for (i = 0; i < fileInput.files.length; i++) {
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            console.log(formdata);
+            $.ajax({
+                url: "/Admin/Products/MultipleFiles",
+                type: "POST",
+                enctype: 'multipart/form-data',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data) {
+                        alert("added a product successfully ");
+                        $('#dataTables-products').DataTable().ajax.reload();
+
+                    } else {
+                        alert("error processs ");
+                    }
+                }
+            })
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        }
+    </script>
+    <!--Ajax DataTable Orders-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-orders').dataTable({
+                "processing": true,
+                "serverSide": false,
+
+                "ajax": {
+                    "url": '/Admin/Orders/GetListOrder',
+                    "type": 'Get',
+                    "datatype": 'json',
+                    "contentType": "application/json; charset=utf-8",
+                    "dataSrc": ""
+                },
+
+                "columns": [{
+                    "data": "orderId"
+                }, {
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+
+                        return row.firstName + ' ' + row.lastName;
+
+                    }
+                },
+
+                {
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+
+                        return row.streetAddress + ' ' + row.apartmentAddress + ' ' + row.city + row.state;
+
+                    }
+                },
+                {
+                    "data": "phoneNumber"
+                },
+                {
+                    "data": "email"
+                },
+                {
+                    "data": "orderPlaced"
+                },
+                {
+                    "data": "orderTotal"
+                }, {
+
+
+                    "data": "orderId",
+                    render: function (data, type, row) {
+                        return "<button type='button'  onclick='detailsOrders(" + data + ")'  value='" + data + "'>details</button> ";
+                    }
+
+
+                },
+                {
+                    "data": "orderId",
+                    render: function (data, type, row) {
+                        return "<button type='button'  onclick='deleteOrders(" + data + ")'  value='" + data + "'>Delete</button> ";
+                    }
+
+                }, {
+                    "data": "orderId",
+                    render: function (data, type, row) {
+                        return "<button type='button'  onclick='addTransports(" + data + ")'  value='" + data + "'>Transports</button> ";
+                    }
+
+                }
+
+                ],
+            })
+        });
+        function detailsOrders(data) {
+            var url = "/Admin/Orders/Details/" + data;
+
+            window.location.href = url;
+        };
+        function deleteOrders(data) {
+            if (confirm("You want to delete the product?")) {
+                var url = "/Admin/Orders/Delete/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response == "true") {
+                            alert("Delete Success");
+                            $('#dataTables-orders').DataTable().ajax.reload();
+                        } else {
+                            alert("error processs");
+                        }
+                    }
+                })
+
+            }
+        };
+        function addTransports(data) {
+            if (confirm("Do you want transport ?")) {
+                var url = "/Admin/Transports/Create/" + data;
+                $.ajax({
+                    url: url,
+                    type: "Get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Transport success!");
+                            $('#dataTables-orders').DataTable().ajax.reload();
+                        } else {
+                            alert("Error process!");
+                        }
+                    }
+                })
+
+            }
+        };
+    </script>
+    <!--Ajax DataTable Products-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-products').dataTable({
+                "processing": true,
+                "serverSide": false,
+
+                "ajax": {
+                    "url": '/Admin/Products/GetListProducts',
+                    "type": 'POST',
+                    "datatype": 'json',
+                    "contentType": "application/json; charset=utf-8",
+                    "dataSrc": ""
+                },
+
+                "columns": [{
+                    "data": "id"
+                }, {
+                    "data": "name", "width": "15%",
+                },
+                {
+                    "data": "productFirstImage", "width": "10%",
+                    render: function (image) {
+                        var src = "<img class='image_products center' src='/assets/img/product/" + image + "' width='100%' />";
+                        return src
+                    }
+                },
+                {
+                    "data": "color", "width": "5%",
+                },
+                {
+                    "data": "price"
+                },
+                {
+                    "data": "description", "width": "30%"
+                }, {
+                    "data": "quantity"
+                },
+                {
+                    "data": "id",
+                    render: function (data, type, row) {
+                        return "<button type='button'  onclick='detailsProducts(" + data + ")'  value='" + data + "'>Details</button> ";
+                    }
+                },
+                {
+                    "data": "id",
+                    render: function (data, type, row) {
+                        return "<button type='button'  onclick='editProducts(" + data + ")'  value='" + data + "'>Edit</button> ";
+                    }
+                },
+                {
+                    "data": "id",
+                    render: function (data, type, row) {
+                        return "<button type='button'  onclick='deleteProducts(" + data + ")'  value='" + data + "'>Delete</button> ";
+                    }
+                },
+                ],
+            })
+        });
+        $(document).ready(function () {
+            $('#products').submit(function (event) {
+                event.preventDefault();
+                ajaxProduct();
+            })
+            function ajaxProduct() {
+                var form = $('#products')[0];
+                var formdata = new FormData(form);
+                var fileInput = document.getElementById('imageUploadForm');
+                for (i = 0; i < fileInput.files.length; i++) {
+                    formdata.append(fileInput.files[i].name, fileInput.files[i]);
+                }
+                console.log(formdata);
+                $.ajax({
+                    url: "/Admin/Products/CreateProduct",
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data) {
+                            alert("Add product success");
+                            $('#dataTables-products').DataTable().ajax.reload();
+
+                        } else {
+                            alert("Add product success");
+                            $('#dataTables-products').DataTable().ajax.reload();
+                        }
+                    }
+                })
+            }
+        });
+       
+        function preview_image() {
+            $('#image_preview').html("");
+
+            var total_file = document.getElementById("upload_file").files.length;
+            for (var i = 0; i < total_file; i++) {
+                $('#image_preview').append("<img  src='" + URL.createObjectURL(event.target.files[i]) + "' width='25%'>");
+            }
+        };
+        function preview_image_up() {
+            $('#image_preview_up').html("");
+
+            var total_file = document.getElementById("uploadfileup").files.length;
+            for (var i = 0; i < total_file; i++) {
+                $('#image_preview_up').append("<img  src='" + URL.createObjectURL(event.target.files[i]) + "' width='25%'>");
+            }
+        };
+        function detailsProducts(data) {
+            var url = "/Admin/Products/Details/" + data;
+
+            window.location.href = url;
+        };
+        function editProducts(data) {
+            var url = "/Admin/Products/Edit/" + data;
+
+            window.location.href = url;
+        };
+       
+        function deleteProducts(data) {
+            if (confirm("Do you want delete products?")) {
+                var url = "/Admin/Products/Delete/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Delete success");
+                            $('#dataTables-products').DataTable().ajax.reload();
+                        } else {
+                            alert("Error processs");
+                        }
+                    }
+                })
+
+            }
+        };
+        $(document).ready(function () {
+            $('#edit_products').submit(function (event) {
+                event.preventDefault();
+                ajaxCategory();
+            });
+            function ajaxCategory() {
+
+                var form = $('# edit_products')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    url: "/Admin/Products/Edit/1",
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        alert("You are save successs!");
+                    },
+                    error: function () {
+                        alert("You are save categorys successs!");
+
+                    }
+                })
+            }
+        });
+
+    </script>
+    <!--    Ajax DataTable Bills
+    -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-bills').dataTable(
+                {
+                    "processing": true,
+                    "serverSide": false,
+
+                    "ajax": {
+                        "url": '/Admin/Bills/GetlistBills',
+                        "type": 'get',
+                        "datatype": 'json',
+                        "contentType": "application/json; charset=utf-8",
+                        "dataSrc": ""
+                    },
+
+                    "columns": [
+                        {
+                            "data": "billId"
+                        },
+                        {
+                            "data": "nameOrder",
+                            "width": "100px"
+                        },
+
+                        {
+                            "data": "receiver",
+
+                        },
+
+                        {
+                            "data": "datePayment"
+                        },
+                        {
+                            "data": "price"
+                        },
+
+                        {
+                            "data": "billId",
+                            render: function (
+                                data) {
+                                return "<button class='btn btn-danger'  onclick='deleteBills("
+                                    + data
+                                    + ")' >Xóa</button>"
+                            }
+                        },
+
+                    ],
+
+                })
+        });
+        function deleteBills(data) {
+            if (confirm("Do you want delete Bills?")) {
+                var url = "/Admin/Bills/Delete/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Delete success!");
+                            $('#dataTables-category').DataTable().ajax.reload();
+                        } else {
+                            alert("Error process");
+                        }
+                    }
+                })
+
+            }
+        };
+
+    </script>
+
+    <!-- Ajax DataTable  Categorys-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-category').dataTable(
+                {
+                    "processing": true,
+                    "serverSide": false,
+
+                    "ajax": {
+                        "url": '/Admin/Categories/GetlistCategories',
+                        "type": 'get',
+                        "datatype": 'json',
+                        "contentType": "application/json; charset=utf-8",
+                        "dataSrc": ""
+                    },
+
+                    "columns": [
+                        {
+                            "data": "categoryId"
+                        },
+                        {
+                            "data": "productCategory",
+                            "width": "100px"
+                        },
+
+                        {
+                            "data": "gender",
+
+                        },
+                        {
+                            "data": "categoryId",
+                            render: function (
+                                data) {
+                                return "<button class='btn btn-danger'  onclick='deleteCategory("
+                                    + data
+                                    + ")' >Delete</button>"
+                            }
+                        },
+
+                    ],
+
+                })
+        });
+        function deleteCategory(data) {
+            if (confirm("Do you want delete categorys?")) {
+                var url = "/Admin/Categories/Delete/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Delete success");
+                            $('#dataTables-category').DataTable().ajax.reload();
+                        } else {
+                            alert("Error proccess");
+                        }
+                    }
+                })
+
+            }
+        };
+        $(document).ready(function () {
+            $('#category').submit(function (event) {
+                event.preventDefault();
+                ajaxCategory();
+            });
+            function ajaxCategory() {
+                var form = $('#category')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    url: "/Admin/Categories/CreateCategories",
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+
+                        alert("You are add categorys successs!");
+                        $('#dataTables-category').DataTable().ajax.reload();
+
+                    },
+                    error: function () {
+                        alert("You are add categorys successs!");
+                        $('#dataTables-category').DataTable().ajax.reload();
+
+                    }
+                })
+            }
+        });
+    </script>
+    <!--    Ajax DataTable Transport
+    -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-transport').dataTable(
+                {
+                    "processing": true,
+                    "serverSide": false,
+
+                    "ajax": {
+                        "url": '/Admin/Transports/GetlistTransport',
+                        "type": 'get',
+                        "datatype": 'json',
+                        "contentType": "application/json; charset=utf-8",
+                        "dataSrc": ""
+                    },
+
+                    "columns": [
+                        {
+                            "data": "transportId"
+                        },
+                        {
+                            "data": "codeT",
+                        },
+
+                        {
+                            "data": "dateTransport",
+
+                        },
+
+                        {
+                            "data": "dateTransportTake"
+                        },
+                        {
+                            "data": "transportId",
+                            render: function (data) {
+                                return "<button class='btn btn-primary' disabled='disabled'>Delivery </button>";
+                            }
+                        },
+                        {
+                            "data": "transportId",
+                            render: function (
+                                data) {
+                                return "<button class='btn btn-danger'  onclick='paymentBills("
+                                    + data
+                                    + ")' >Payment</button>"
+                            }
+                        },
+                        {
+                            "data": "transportId",
+                            render: function (
+                                data) {
+                                return "<button class='btn btn-danger'  onclick='deleteTransport("
+                                    + data
+                                    + ")' >Cancel</button>"
+                            }
+                        },
+
+                    ],
+
+                })
+        });
+        function paymentBills(data) {
+            if (confirm("Do you payment?")) {
+                var url = "/Admin/Bills/Create/" + data;
+                $.ajax({
+                    url: url,
+                    type: "Get",
+                    success: function (response) {
+                        if (response) {
+                            alert("The recipient has received the goods");
+                            $('#dataTables-products').DataTable().ajax.reload();
+                        } else {
+                            alert("Error process");
+                        }
+                    }
+                })
+
+            }
+        };
+        function deleteTransport(data) {
+            if (confirm("Do you want cancel transport ?")) {
+                var url = "/Admin/Transports/Delete/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Delete successs!");
+                            $('#dataTables-category').DataTable().ajax.reload();
+                        } else {
+                            alert("Error process");
+                        }
+                    }
+                })
+
+            }
+        };
+    </script>
+    <!--     Ajax DataTable Users
+    -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables-users').dataTable(
+                {
+                    "processing": true,
+                    "serverSide": false,
+
+                    "ajax": {
+                        "url": '/Admin/User/GetListUser',
+                        "type": 'get',
+                        "datatype": 'json',
+                        "contentType": "application/json; charset=utf-8",
+                        "dataSrc": ""
+                    },
+
+                    "columns": [
+                        {
+                            "data": null,
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            }
+
+                        },
+                        {
+                            "data": "fullName",
+                        },
+                        {
+                            "data": "userName",
+                        },
+
+                        {
+                            "data": "phoneNumber",
+
+                        },
+                        {
+                            "data": "createdDate",
+
+                        },
+                        {
+                            "data": "active",
+                            render: function (data) {
+                                return "<button class='btn btn-primary' asp-action='Details' asp-route-id=''>Active</button>";
+                            }
+                        },
+                        {
+                            "data": "userName",
+                            render: function (data) {
+                                if (data.includes("admin")) {
+                                    return "<button class='btn btn-primary' asp-action='Details' asp-route-id='" + data + "'>Admin</button>";
+                                } else {
+                                    return "<button class='btn btn-primary' asp-action='Details' asp-route-id='" + data + "'>User</button>";
+
+                                }
+                            }
+                        },
+
+                        {
+                            "data": "userName",
+                            "render": function (data) {
+                                return "<a class='btn btn-danger'  onclick='active("+data +")' >Delete</a>"
+                            }
+                        },
+
+                    ],
+
+                })
+        });
+        function active(data) {
+            if (confirm("Do you want active account ? ")) {
+                var url = "/Admin/User/ActiveUser/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Activie Success");
+                            $('#dataTables-category').DataTable().ajax.reload();
+                        } else {
+                            alert("Errorr");
+                        }
+                    }
+                })
+
+            }
+        };
+        function setRoles(id) {
+            if (confirm("Do you want role accounr for Admin/User")) {
+                var url = "/Admin/User/SetRole/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Bạn đã xóa thành công");
+                            $('#dataTables-category').DataTable().ajax.reload();
+                        } else {
+                            alert("xảy ra quá trình xử lý");
+                        }
+                    }
+                })
+
+            }
+        };
+        function deleteUser(data) {
+            if (confirm("Do you want delete user? ")) {
+                var url = "/Admin/Categories/Delete/" + data;
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (response) {
+                        if (response) {
+                            alert("Delete Success!");
+                            $('#dataTables-category').DataTable().ajax.reload();
+                        } else {
+                            alert("Error Process");
+                        }
+                    }
+                })
+
+            }
+        };
+        $(document).ready(function () {
+            $('#user').submit(function (event) {
+                event.preventDefault();
+                ajaxCategory();
+            });
+            function ajaxCategory() {
+                var form = $('#user')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    url: "/Admin/User/CreateUser",
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+
+                        alert("Add success! ");
+                        $('#dataTables-category').DataTable().ajax.reload();
+
+                    },
+                    error: function () {
+                        alert("Error processs ");
+                        $('#dataTables-category').DataTable().ajax.reload();
+
+                    }
+                })
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        function logout() {
+            window.location.href = "/Identity/Account/Logout?";
+
+        }
+    </script>
+
+
+</body>
+</html>
+
+

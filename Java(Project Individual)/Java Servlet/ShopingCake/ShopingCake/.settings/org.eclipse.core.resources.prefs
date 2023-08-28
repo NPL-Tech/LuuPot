@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/main/java/controller/HomeProductsServlet.java=UTF-8
+encoding//src/main/java/controller/HomeSearchProduct.java=UTF-8
+encoding//src/main/java/controller/UsersRegisterServlet.java=UTF-8
+encoding//src/main/java/dao/AddressDAO.java=UTF-8
+encoding//src/main/webapp/admin/dashboard.jsp=UTF-8
+encoding//src/main/webapp/admin/layout/head.jsp=UTF-8
+encoding//src/main/webapp/admin/layout/header.jsp=UTF-8
+encoding//src/main/webapp/admin/managebrand.jsp=UTF-8
+encoding//src/main/webapp/blog.jsp=UTF-8
+encoding//src/main/webapp/contact.jsp=UTF-8
+encoding//src/main/webapp/index.jsp=UTF-8
+encoding//src/main/webapp/layout/header.jsp=UTF-8
+encoding//src/main/webapp/product-details.jsp=UTF-8
+encoding//src/main/webapp/shop.jsp=UTF-8
+encoding//src/main/webapp/shoping-cart.jsp=UTF-8
+encoding/<project>=UTF-8

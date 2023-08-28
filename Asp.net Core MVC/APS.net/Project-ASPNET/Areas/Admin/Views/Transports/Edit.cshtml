@@ -1,0 +1,47 @@
+﻿@model ProjectDotNetV2.Data.Entities.Transport
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Transport</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TransportId" />
+            <div class="form-group">
+                <label asp-for="CodeT" class="control-label"></label>
+                <input asp-for="CodeT" class="form-control" />
+                <span asp-validation-for="CodeT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTransport" class="control-label"></label>
+                <input asp-for="DateTransport" class="form-control" />
+                <span asp-validation-for="DateTransport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTransportTake" class="control-label"></label>
+                <input asp-for="DateTransportTake" class="form-control" />
+                <span asp-validation-for="DateTransportTake" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

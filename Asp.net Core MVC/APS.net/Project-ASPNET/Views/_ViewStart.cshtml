@@ -1,0 +1,15 @@
+﻿
+@{
+    var requestedController = ViewContext.RouteData.Values["Controller"].ToString();
+    //dynamic Layout;
+    switch (requestedController)
+    {
+        case "Admin":
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+            break;
+        default:
+            Layout = "~/Views/Shared/_Layout.cshtml";
+            break;
+    }
+    //Layout = "_Layout";
+}

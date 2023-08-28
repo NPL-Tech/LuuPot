@@ -1,0 +1,43 @@
+﻿@model ProjectDotNetV2.Data.Entities.Bill
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NameOrder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Receiver)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Receiver)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePayment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatePayment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BillId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,103 @@
+﻿@model ProjectDotNetV2.Data.Entities.Category
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Category</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <button type="button"
+                                    class="btn_add"
+                                    data-toggle="modal"
+                                    data-target="#myModal">
+                                &#43; Add New
+                            </button>
+
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <form   asp-action="CreateCategories" id="category">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button"
+                                                        class="close"
+                                                        data-dismiss="modal">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title">Add Product</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-10 offset-md-2">
+                                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                        <div class="form-group">
+                                                            <label asp-for="ProductCategory" class="control-label"></label>
+                                                            <input asp-for="ProductCategory" class="form-control" />
+                                                            <span asp-validation-for="ProductCategory" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="Gender" class="control-label"></label>
+                                                            <input asp-for="Gender" class="form-control" />
+                                                            <span asp-validation-for="Gender" class="text-danger"></span>
+                                                        </div>
+                                                       
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Create" class="btn btn-sm btn-primary text-uppercase addPD" />
+                                                <button type="button"
+                                                        class="btn btn-default"
+                                                        data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-bordered table-hover"
+                                   id="dataTables-category">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Category</th>
+                                        <th>Gender</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>

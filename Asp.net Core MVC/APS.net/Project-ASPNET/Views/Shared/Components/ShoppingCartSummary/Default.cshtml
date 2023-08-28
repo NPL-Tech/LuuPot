@@ -1,0 +1,56 @@
+﻿@model ShoppingCartViewModel
+
+@if (Model.ShoppingCart.ShoppingCartItems.Count <= 1)
+{
+
+    <a asp-controller="ShoppingCart" asp-action="Index"><i class="fa fa-shopping-cart"></i> @Model.ShoppingCart.ShoppingCartItems.Count Item - $@string.Format("{0:n2}", Model.ShoppingCartTotal) <i class="fa fa-angle-down"></i></a>
+}
+else
+{
+<a asp-controller="ShoppingCart" asp-action="Index"><i class="fa fa-shopping-cart"></i> @Model.ShoppingCart.ShoppingCartItems.Count Items - $@string.Format("{0:n2}", Model.ShoppingCartTotal) <i class="fa fa-angle-down"></i></a>
+
+}
+<div class="mini_cart">
+
+    @foreach (var p in Model.ShoppingCart.ShoppingCartItems)
+    {
+        <div class="cart_item">
+            <div class="cart_img">
+                <a href="#"><img src="~/assets/img/cart/@(p.Product.ProductSecondImage).jpg" alt=""></a>
+            </div>
+            <div class="cart_info">
+                <a href="#">@p.Product.Name</a>
+                <span class="cart_price">$@p.Product.Price</span>
+                <span class="quantity">Qty: @p.Amount</span>
+            </div>
+            <div class="cart_remove">
+                <a title="Remove this item" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-id="@p.Product.Id"><i class="fa fa-times-circle"></i></a>
+            </div>
+        </div>
+    }
+
+    @*<div class="cart_item">
+            <div class="cart_img">
+                <a href="#"><img src="~/assets/img/cart/cart2.jpg" alt=""></a>
+            </div>
+            <div class="cart_info">
+                <a href="#">Quisque ornare dui</a>
+                <span class="cart_price">$105.00</span>
+                <span class="quantity">Qty: 1</span>
+            </div>
+            <div class="cart_remove">
+                <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
+            </div>
+        </div>*@
+    <div class="shipping_price">
+        <span> Shipping </span>
+        <span>  $8.90  </span>
+    </div>
+    <div class="total_price">
+        <span> total </span>
+        <span class="prices">  $@(Model.ShoppingCartTotal + 8.90m)   </span>
+    </div>
+    <div class="cart_button">
+        <a asp-controller="Order" asp-action="Checkout"> Check out</a>
+    </div>
+</div>
